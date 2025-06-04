@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Farm Registration</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="min-h-screen bg-gradient-to-r from-blue-100 via-green-100 to-yellow-100 p-8">
+    <div class="max-w-3xl mx-auto">
+      <h1 class="text-3xl font-bold text-gray-900 mb-8 text-center">Farm Registration</h1>
+
+      <% if (typeof message !== 'undefined') { %>
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4">
+          <span class="block sm:inline"><%= message %></span>
+        </div>
+      <% } %>
+
+      <div class="flex justify-end mb-4">
+        <a href="/dashboard" class="inline-block px-4 py-2 rounded-md bg-blue-600 text-white text-center font-medium hover:bg-blue-500">
+          Go to Dashboard
+        </a>
+      </div>
+
+      <div class="bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-lg shadow-lg p-6">
+        <form action="/farm/register" method="POST" enctype="multipart/form-data" class="space-y-6">
+          <div>
+            <label for="farmName" class="block text-sm font-medium text-gray-700">Farm Name</label>
+            <input
+              type="text"
+              id="farmName"
+              name="farmName"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="area" class="block text-sm font-medium text-gray-700">Total Area (in acres)</label>
+            <input
+              type="number"
+              id="area"
+              name="area"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              min="0"
+              step="0.01"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="soilType" class="block text-sm font-medium text-gray-700">Soil Type</label>
+            <select
+              id="soilType"
+              name="soilType"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              required
+            >
+              <option value="">Select soil type</option>
+              <option value="clay">Clay</option>
+              <option value="sandy">Sandy</option>
+              <option value="loamy">Loamy</option>
+              <option value="silt">Silt</option>
+              <option value="peat">Peat</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="waterSource" class="block text-sm font-medium text-gray-700">Water Source</label>
+            <select
+              id="waterSource"
+              name="waterSource"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
+              required
+            >
+              <option value="">Select water source</option>
+              <option value="well">Well</option>
+              <option value="canal">Canal</option>
+              <option value="river">River</option>
+              <option value="rainwater">Rainwater</option>
+              <option value="borewell">Borewell</option>
+            </select>
+          </div>         
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Land Documents</label>
+            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+              <div class="space-y-1 text-center">
+                <svg
+                  class="mx-auto h-12 w-12 text-gray-400"
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 48 48"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <div class="flex text-sm text-gray-600">
+                  <label
+                    for="documents"
+                    class="relative cursor-pointer bg-white rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-green-500"
+                  >
+                    <span>Upload a file</span>
+                    <input
+                      id="documents"
+                      name="documents"
+                      type="file"
+                      class="sr-only"
+                      accept=".pdf,.jpg,.jpeg,.png"
+                      required
+                    />
+                  </label>
+                  <p class="pl-1">or drag and drop</p>
+                </div>
+                <p class="text-xs text-gray-500">PDF, PNG, JPG up to 10MB</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end">
+            <button type="submit" class="inline-block px-4 py-2 rounded-md bg-green-600 text-white text-center font-medium">
+              Register Farm
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

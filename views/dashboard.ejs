@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="min-h-screen bg-gray-100">
+    <!-- Sidebar -->
+    <div class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
+      <div class="flex items-center h-16 px-4">
+        <svg class="h-8 w-8 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 00-7.07 17.07A10 10 0 1012 2z" />
+        </svg>
+        <span class="ml-2 text-xl font-bold text-gray-900">AgroFunda</span>
+      </div>
+      <nav class="mt-4">
+        <a href="#" class="flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50">
+          <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3V3z" />
+          </svg>
+          Overview
+        </a>
+        <a href="/farmer-registration" class="flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50">
+          <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+          Farmer Registration
+        </a>
+        <a href="/farm-registration" class="flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50">
+          <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18v18H3V3z" />
+          </svg>
+          Farm Registration
+        </a>
+        <a href="/storeManagement" class="flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50">
+          <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          Store Management
+        </a>
+        <a href="/" class="flex items-center px-4 py-3 text-sm font-medium text-gray-600 hover:text-green-600 hover:bg-green-50">
+          <svg class="h-5 w-5 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6h12v12H6z" />
+          </svg>
+          Logout
+        </a>
+      </nav>
+    </div>
+
+    <!-- Main content -->
+    <div class="ml-64 p-8">
+      <div class="mb-8">
+        <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+      </div>
+
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="text-lg font-medium text-gray-900">Total Farmers</h3>
+          <p class="mt-2 text-3xl font-bold text-green-600">24</p>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="text-lg font-medium text-gray-900">Active Farms</h3>
+          <p class="mt-2 text-3xl font-bold text-green-600">12</p>
+        </div>
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="text-lg font-medium text-gray-900">Total Area</h3>
+          <p class="mt-2 text-3xl font-bold text-green-600">450 acres</p>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <div class="bg-white rounded-lg shadow">
+          <div class="p-6">
+            <h3 class="text-lg font-medium text-gray-900">Recent Activities</h3>
+            <div class="mt-4">
+              <div class="border-t border-gray-200">
+                <% for (let i = 0; i < 3; i++) { %>
+                  <div class="py-4">
+                    <div class="flex items-center">
+                      <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-900">
+                          New farmer registration completed
+                        </p>
+                        <p class="text-sm text-gray-500">2 hours ago</p>
+                      </div>
+                    </div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Owner Requests Section -->
+      <div class="mt-8">
+        <div class="bg-white rounded-lg shadow">
+          <div class="p-6">
+            <h3 class="text-lg font-medium text-gray-900">Owner Requests</h3>
+            <div class="mt-4">
+              <div class="border-t border-gray-200">
+                <h4 class="text-md font-medium text-gray-900 mt-4">Lease Requests</h4>
+                <div id="leaseRequests" class="space-y-4 mt-4">
+                  <!-- Lease requests will be rendered here -->
+                </div>
+                <h4 class="text-md font-medium text-gray-900 mt-4">Hire Requests</h4>
+                <div id="hireRequests" class="space-y-4 mt-4">
+                  <!-- Hire requests will be rendered here -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accepted Requests Section -->
+      <div class="mt-8">
+        <div class="bg-white rounded-lg shadow">
+          <div class="p-6">
+            <h3 class="text-lg font-medium text-gray-900">Accepted Requests</h3>
+            <div class="mt-4">
+              <div class="border-t border-gray-200">
+                <h4 class="text-md font-medium text-gray-900 mt-4">Accepted Lease Requests</h4>
+                <div id="acceptedLeaseRequests" class="space-y-4 mt-4">
+                  <!-- Accepted lease requests will be rendered here -->
+                </div>
+                <h4 class="text-md font-medium text-gray-900 mt-4">Accepted Hire Requests</h4>
+                <div id="acceptedHireRequests" class="space-y-4 mt-4">
+                  <!-- Accepted hire requests will be rendered here -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadOwnerRequests();
+      await loadAcceptedRequests();
+    });
+
+    async function loadOwnerRequests() {
+      try {
+        const leaseResponse = await fetch('/api/lease/requests');
+        const leaseRequests = await leaseResponse.json();
+        const leaseRequestsDiv = document.getElementById('leaseRequests');
+        leaseRequestsDiv.innerHTML = '';
+
+        leaseRequests.forEach(request => {
+          const requestDiv = document.createElement('div');
+          requestDiv.className = 'bg-green-50 p-4 rounded-lg shadow hover:bg-green-100 transition duration-300';
+          requestDiv.innerHTML = `
+            <p class="text-sm text-gray-600">Farm: ${request.farmName}</p>
+            <p class="text-sm text-gray-600">Owner Name: ${request.ownerName}</p>
+            <p class="text-sm text-gray-600">Owner Phone: ${request.ownerPhone}</p>
+            <p class="text-sm text-gray-600">Lease Duration: ${request.leaseDuration} months</p>
+            <p class="text-sm text-gray-600">Rent: ₹${request.rent} per month</p>
+            <p class="text-sm text-gray-600">Payment Method: ${request.payment}</p>
+            <button onclick="acceptLeaseRequest('${request._id}', this)" class="mt-2 p-2 bg-blue-600 text-white rounded-lg transition-colors duration-300 hover:bg-blue-500">Accept Lease</button>
+          `;
+          leaseRequestsDiv.appendChild(requestDiv);
+        });
+
+        const hireResponse = await fetch('/api/hire/requests');
+        const hireRequests = await hireResponse.json();
+        const hireRequestsDiv = document.getElementById('hireRequests');
+        hireRequestsDiv.innerHTML = '';
+
+        hireRequests.forEach(request => {
+          const requestDiv = document.createElement('div');
+          requestDiv.className = 'bg-blue-50 p-4 rounded-lg shadow hover:bg-blue-100 transition duration-300';
+          requestDiv.innerHTML = `
+            <p class="text-sm text-gray-600">Farmer: ${request.farmerName}</p>
+            <p class="text-sm text-gray-600">Owner Name: ${request.ownerName}</p>
+            <p class="text-sm text-gray-600">Owner Phone: ${request.ownerPhone}</p>
+            <p class="text-sm text-gray-600">Hire Duration: ${request.hireDuration} months</p>
+            <p class="text-sm text-gray-600">Salary: ₹${request.salary} per month</p>
+            <p class="text-sm text-gray-600">Payment Method: ${request.paymentMethod}</p>
+            <button onclick="acceptHireRequest('${request._id}', this)" class="mt-2 p-2 bg-green-600 text-white rounded-lg transition-colors duration-300 hover:bg-green-500">Accept Hire</button>
+          `;
+          hireRequestsDiv.appendChild(requestDiv);
+        });
+      } catch (error) {
+        console.error('Error loading owner requests:', error);
+      }
+    }
+
+    async function loadAcceptedRequests() {
+      try {
+        const acceptedLeaseResponse = await fetch('/api/lease/accepted');
+        const acceptedLeaseRequests = await acceptedLeaseResponse.json();
+        const acceptedLeaseRequestsDiv = document.getElementById('acceptedLeaseRequests');
+        acceptedLeaseRequestsDiv.innerHTML = '';
+
+        acceptedLeaseRequests.forEach(request => {
+          const requestDiv = document.createElement('div');
+          requestDiv.className = 'bg-green-50 p-4 rounded-lg shadow hover:bg-green-100 transition duration-300';
+          requestDiv.innerHTML = `
+            <p class="text-sm text-gray-600">Farm: ${request.farmName}</p>
+            <p class="text-sm text-gray-600">Owner Name: ${request.ownerName}</p>
+            <p class="text-sm text-gray-600">Owner Phone: ${request.ownerPhone}</p>
+            <p class="text-sm text-gray-600">Lease Duration: ${request.leaseDuration} months</p>
+            <p class="text-sm text-gray-600">Rent: ₹${request.rent} per month</p>
+            <p class="text-sm text-gray-600">Payment Method: ${request.payment}</p>
+          `;
+          acceptedLeaseRequestsDiv.appendChild(requestDiv);
+        });
+
+        const acceptedHireResponse = await fetch('/api/hire/accepted');
+        const acceptedHireRequests = await acceptedHireResponse.json();
+        const acceptedHireRequestsDiv = document.getElementById('acceptedHireRequests');
+        acceptedHireRequestsDiv.innerHTML = '';
+
+        acceptedHireRequests.forEach(request => {
+          const requestDiv = document.createElement('div');
+          requestDiv.className = 'bg-blue-50 p-4 rounded-lg shadow hover:bg-blue-100 transition duration-300';
+          requestDiv.innerHTML = `
+            <p class="text-sm text-gray-600">Farmer: ${request.farmerName}</p>
+            <p class="text-sm text-gray-600">Owner Name: ${request.ownerName}</p>
+            <p class="text-sm text-gray-600">Owner Phone: ${request.ownerPhone}</p>
+            <p class="text-sm text-gray-600">Hire Duration: ${request.hireDuration} months</p>
+            <p class="text-sm text-gray-600">Salary: ₹${request.salary} per month</p>
+            <p class="text-sm text-gray-600">Payment Method: ${request.paymentMethod}</p>
+          `;
+          acceptedHireRequestsDiv.appendChild(requestDiv);
+        });
+      } catch (error) {
+        console.error('Error loading accepted requests:', error);
+      }
+    }
+
+    async function acceptLeaseRequest(requestId, button) {
+      try {
+        const response = await fetch(`/api/lease/accept/${requestId}`, {
+          method: 'POST'
+        });
+
+        if (response.ok) {
+          alert('Lease request accepted!');
+          const requestDiv = button.parentElement;
+          requestDiv.remove(); // Remove the request from the UI
+        } else {
+          alert('Failed to accept lease request.');
+        }
+      } catch (error) {
+        console.error('Error accepting lease request:', error);
+        alert('An error occurred. Please try again.');
+      }
+    }
+
+    async function acceptHireRequest(requestId, button) {
+      try {
+        const response = await fetch(`/api/hire/accept/${requestId}`, {
+          method: 'POST'
+        });
+
+        if (response.ok) {
+          alert('Hire request accepted!');
+          const requestDiv = button.parentElement;
+          requestDiv.remove();
+          await loadAcceptedRequests();
+        } else {
+          alert('Failed to accept hire request.');
+        }
+      } catch (error) {
+        console.error('Error accepting hire request:', error);
+        alert('An error occurred. Please try again.');
+      }
+    }
+  </script>
+</body>
+</html>

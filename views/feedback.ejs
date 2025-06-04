@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback - AgroFunda</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-r from-green-100 via-blue-100 to-purple-100 min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-gradient-to-r from-green-500 to-green-700 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+      <div class="flex items-center">
+        <i class="fas fa-leaf text-white text-2xl"></i>
+        <span class="ml-2 text-xl font-bold text-white">AgroFunda</span>
+      </div>
+      <a href="/" class="text-white hover:text-gray-200">Home</a>
+    </div>
+  </nav>
+
+  <!-- Feedback Section -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    
+    <!-- Feedback Form -->
+    <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+      <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-6">📝 Share Your Feedback</h2>
+      <form action="/api/feedback" method="POST" class="max-w-3xl mx-auto space-y-4 bg-gradient-to-r from-yellow-100 to-yellow-200 p-6 rounded-lg shadow-lg">
+        
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+          <input type="text" id="name" name="name" required
+            class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm">
+        </div>
+
+        <div>
+          <label for="review" class="block text-sm font-medium text-gray-700">Your Review</label>
+          <textarea id="review" name="review" rows="4" required
+            class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"></textarea>
+        </div>
+
+        <div class="flex justify-end">
+          <button type="submit" 
+            class="px-6 py-2 rounded-md bg-gradient-to-r from-green-500 to-green-600 text-white font-medium shadow-md hover:from-green-600 hover:to-green-700 transition">
+            Submit Feedback
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="mt-10 bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+      <h2 class="text-3xl font-extrabold text-gray-900 text-center">🌟 Customer Reviews</h2>
+      <p class="text-center text-gray-600 mt-2">Read what others have to say about us!</p>
+
+      <!-- Reviews Display -->
+      <div id="reviews" class="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Reviews will be rendered here -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-6">
+    <div class="text-center text-sm">&copy; 2025 AgroFunda. All rights reserved.</div>
+  </footer>
+
+  <!-- JavaScript to Load Reviews -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadReviews();
+    });
+
+    async function loadReviews() {
+      try {
+        const response = await fetch('/api/feedback');
+        const feedbacks = await response.json();
+        const reviewsDiv = document.getElementById('reviews');
+        reviewsDiv.innerHTML = '';
+
+        if (feedbacks.length === 0) {
+          reviewsDiv.innerHTML = '<p class="text-center text-gray-500">No reviews yet. Be the first to share your thoughts!</p>';
+          return;
+        }
+
+        feedbacks.forEach(feedback => {
+          const reviewDiv = document.createElement('div');
+          reviewDiv.className = 'bg-gradient-to-r from-blue-100 to-blue-200 p-5 rounded-lg shadow-lg transition transform hover:scale-105';
+
+          reviewDiv.innerHTML = `
+            <div class="flex items-center space-x-3 mb-2">
+              <i class="fas fa-user-circle text-gray-700 text-2xl"></i>
+              <p class="text-lg font-semibold text-gray-900">${feedback.name}</p>
+            </div>
+            <p class="text-gray-700 italic">"${feedback.review}"</p>
+            <p class="text-sm text-gray-500 mt-2">${new Date(feedback.createdAt).toLocaleString()}</p>
+          `;
+
+          reviewsDiv.appendChild(reviewDiv);
+        });
+      } catch (error) {
+        console.error('Error loading reviews:', error);
+      }
+    }
+  </script>
+
+</body>
+</html>

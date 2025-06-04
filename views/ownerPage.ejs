@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner Page</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+  <div class="min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-green-600 shadow">
+      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <h1 class="text-3xl font-bold text-white">Owner Dashboard</h1>
+        <a href="/auth/logout" class="text-white bg-red-600 px-4 py-2 rounded-lg hover:bg-red-500 transition-colors duration-300">
+          Logout
+        </a>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="flex-grow">
+      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Farms Section -->
+          <section class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Farms</h2>
+            <div class="space-y-4">
+              <% farms.forEach(farm => { %>
+                <div class="bg-green-50 p-4 rounded-lg shadow hover:bg-green-100 transition duration-300">
+                  <h3 class="text-lg font-medium text-gray-900"><%= farm.farmName %></h3>
+                  <p class="text-sm text-gray-600">Location: <%= farm.location %></p>
+                  <p class="text-sm text-gray-600">Area: <%= farm.area %> acres</p>
+                  <p class="text-sm text-gray-600">Soil Type: <%= farm.soilType %></p>
+                  <p class="text-sm text-gray-600">Water Source: <%= farm.waterSource %></p>
+                  <% if (farm.lease) { %>
+                    <p class="text-sm text-gray-600">Status: Owned by <%= farm.lease.ownerName %></p>
+                    <p class="text-sm text-gray-600">Lease Duration: <%= farm.lease.leaseDuration %> months</p>
+                  <% } else { %>
+                    <button onclick="openLeasePopup('<%= farm._id %>')" class="mt-2 p-2 bg-blue-600 text-white rounded-lg transition-colors duration-300 hover:bg-blue-500">Lease Farm</button>
+                  <% } %>
+                </div>
+              <% }) %>
+            </div>
+          </section>
+
+          <!-- Farmers Section -->
+          <section class="bg-white rounded-lg shadow p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Farmers</h2>
+            <div class="space-y-4">
+              <% farmers.forEach(farmer => { %>
+                <div class="bg-blue-50 p-4 rounded-lg shadow hover:bg-blue-100 transition duration-300">
+                  <h3 class="text-lg font-medium text-gray-900"><%= farmer.fullName %></h3>
+                  <p class="text-sm text-gray-600">Aadhar Number: <%= farmer.aadharNo %></p>
+                  <p class="text-sm text-gray-600">Phone Number: <%= farmer.phoneNumber %></p>
+                  <p class="text-sm text-gray-600">Address: <%= farmer.address %></p>
+                  <p class="text-sm text-gray-600">Experience: <%= farmer.experience %> years</p>
+                  <p class="text-sm text-gray-600">Preferred Crops: <%= farmer.preferredCrops %></p>
+                  <% if (farmer.hire) { %>
+                    <p class="text-sm text-gray-600">Status: Hired by <%= farmer.hire.ownerName %></p>
+                    <p class="text-sm text-gray-600">Hire Duration: <%= farmer.hire.hireDuration %> months</p>
+                  <% } else { %>
+                    <button onclick="openHirePopup('<%= farmer._id %>')" class="mt-2 p-2 bg-green-600 text-white rounded-lg transition-colors duration-300 hover:bg-green-500">Hire Farmer</button>
+                  <% } %>
+                </div>
+              <% }) %>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Lease Popup -->
+  <div id="leasePopup" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="modal-content bg-white p-5 rounded-lg shadow-lg w-3/4">
+      <span class="close text-gray-500 float-right text-2xl font-bold cursor-pointer transition-colors duration-300 hover:text-black" onclick="closeLeasePopup()">&times;</span>
+      <h2 class="text-center mb-5 text-2xl">Lease Farm</h2>
+      <form id="leaseForm" class="flex flex-col items-center">
+        <input type="hidden" id="farmId" name="farmId">
+        <label for="ownerName" class="mb-2">Owner Name:</label>
+        <input type="text" id="ownerName" name="ownerName" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+        <label for="ownerPhone" class="mb-2">Owner Phone Number:</label>
+        <input type="text" id="ownerPhone" name="ownerPhone" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+        <label for="leaseDuration" class="mb-2">Lease Duration (in months):</label>
+        <input type="number" id="leaseDuration" name="leaseDuration" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+        <label for="rent" class="mb-2">Rent (per month):</label>
+        <input type="number" id="rent" name="rent" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+        <label for="payment" class="mb-2">Payment Method:</label>
+        <select id="payment" name="payment" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+          <option value="credit_card">Credit Card</option>
+          <option value="debit_card">Debit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="cash_on_delivery">Cash on Delivery</option>
+        </select>
+        <button type="button" onclick="leaseFarm()" class="p-2 bg-blue-600 text-white rounded-lg transition-colors duration-300 hover:bg-blue-500">Lease Now</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Hire Popup -->
+  <div id="hirePopup" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="modal-content bg-white p-5 rounded-lg shadow-lg w-3/4">
+        <span class="close text-gray-500 float-right text-2xl font-bold cursor-pointer transition-colors duration-300 hover:text-black" onclick="closeHirePopup()">&times;</span>
+        <h2 class="text-center mb-5 text-2xl">Hire Farmer</h2>
+        <form id="hireForm" onsubmit="return validateForm()" class="flex flex-col items-center">
+            <input type="hidden" id="farmerId" name="farmerId">
+            <label for="hireOwnerName" class="mb-2">Owner Name:</label>
+            <input type="text" id="hireOwnerName" name="ownerName" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+            <label for="hireOwnerPhone" class="mb-2">Owner Phone Number:</label>
+            <input type="text" id="hireOwnerPhone" name="ownerPhone" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+            <label for="hireDuration" class="mb-2">Hire Duration (in months):</label>
+            <input type="number" id="hireDuration" name="hireDuration" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+            <label for="salary" class="mb-2">Salary (per month):</label>
+            <input type="number" id="salary" name="salary" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+            <label for="paymentMethod" class="mb-2">Payment Method:</label>
+            <select id="paymentMethod" name="paymentMethod" required class="mb-4 p-2 border border-gray-300 rounded-lg text-lg">
+                <option value="credit_card">Credit Card</option>
+                <option value="debit_card">Debit Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="cash_on_delivery">Cash on Delivery</option>
+            </select>
+            <button type="button" onclick="hireFarmer()" class="p-2 bg-green-600 text-white rounded-lg transition-colors duration-300 hover:bg-green-500">Hire Now</button>
+        </form>
+    </div>
+</div>
+
+  <script>
+    function openLeasePopup(farmId) {
+      document.getElementById('farmId').value = farmId;
+      document.getElementById('leasePopup').classList.remove('hidden');
+    }
+
+    function closeLeasePopup() {
+      document.getElementById('leasePopup').classList.add('hidden');
+    }
+
+    async function leaseFarm() {
+      const farmId = document.getElementById('farmId').value;
+      const ownerName = document.getElementById('ownerName').value;
+      const ownerPhone = document.getElementById('ownerPhone').value;
+      const leaseDuration = document.getElementById('leaseDuration').value;
+      const rent = document.getElementById('rent').value;
+      const payment = document.getElementById('payment').value;
+
+      const leaseDetails = {
+        farmId,
+        ownerName,
+        ownerPhone,
+        leaseDuration,
+        rent,
+        payment
+      };
+
+      try {
+        const response = await fetch('/api/lease', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(leaseDetails)
+        });
+
+        if (response.ok) {
+          alert('Farm leased successfully!');
+          closeLeasePopup();
+          await loadOwnerPage();
+        } else {
+          alert('Failed to lease farm.');
+        }
+      } catch (error) {
+        console.error('Error leasing farm:', error);
+        alert('An error occurred. Please try again.');
+      }
+    }
+
+    function openHirePopup(farmerId) {
+      document.getElementById('farmerId').value = farmerId;
+      document.getElementById('hirePopup').classList.remove('hidden');
+    }
+
+    function closeHirePopup() {
+      document.getElementById('hirePopup').classList.add('hidden');
+    }
+
+    async function hireFarmer() {
+      const farmerId = document.getElementById('farmerId').value;
+      const ownerName = document.getElementById('hireOwnerName').value; // Updated ID
+      const ownerPhone = document.getElementById('hireOwnerPhone').value; // Updated ID
+      const hireDuration = document.getElementById('hireDuration').value;
+      const salary = document.getElementById('salary').value;
+      const paymentMethod = document.getElementById('paymentMethod').value;
+
+      console.log('Hire Details:', { farmerId, ownerName, ownerPhone, hireDuration, salary, paymentMethod }); // Debugging
+
+      if (!ownerName || !ownerPhone) {
+        alert('Owner name and phone number are required');
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/hire', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ farmerId, ownerName, ownerPhone, hireDuration, salary, paymentMethod })
+        });
+
+        if (response.ok) {
+          alert('Farmer hired successfully!');
+          closeHirePopup();
+          await loadOwnerPage();
+        } else {
+          const errorData = await response.json();
+          alert(`Failed to hire farmer: ${errorData.message}`);
+        }
+      } catch (error) {
+        console.error('Error hiring farmer:', error);
+        alert('An error occurred. Please try again.');
+      }
+    }
+
+    async function loadOwnerPage() {
+      try {
+        const response = await fetch('/owner');
+        const html = await response.text();
+        document.documentElement.innerHTML = html;
+      } catch (error) {
+        console.error('Error loading owner page:', error);
+      }
+    }
+
+    function validateForm() {
+      const ownerName = document.getElementById('ownerName').value;
+      const ownerPhone = document.getElementById('ownerPhone').value;
+
+      if (!ownerName || !ownerPhone) {
+        alert('Owner name and phone number are required');
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>

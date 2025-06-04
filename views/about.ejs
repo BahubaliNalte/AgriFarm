@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | AgroFunda</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .custom-bg {
+      background: linear-gradient(to right, #fffae3, #f5d547);
+    }
+    .image-container {
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .image-container img {
+      width: 350px;
+      height: 350px;
+      border-radius: 10px;
+      box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .hidden { display: none; }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .button-animation {
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .button-animation:hover {
+      background-color: #4CAF50;
+      transform: scale(1.1);
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #2d3748;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .section-content {
+      padding-left: 1.5rem;
+      font-size: 1.125rem;
+      color: #4a5568;
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
+    <nav class="bg-gradient-to-r from-green-500 to-green-700 shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <span class="ml-2 text-xl font-bold text-white">AgroFunda</span>
+          </div>
+          <a href="/" class="text-white hover:text-gray-200">Home</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="custom-bg p-8 rounded-lg shadow-lg">
+        <h2 class="text-3xl font-extrabold text-gray-900 text-center">About Us</h2>
+        <p class="mt-4 text-lg text-gray-700 text-center max-w-3xl mx-auto">
+          AgroFunda is an innovative platform designed to connect farmers, farm owners, and customers in a unified agricultural ecosystem.
+        </p>
+        
+        <div class="mt-8 image-container">
+          <img src="https://www.mckinsey.com/~/media/mckinsey/industries/agriculture/our%20insights/voice%20of%20the%20us%20farmer%202023%20to%2024%20farmers%20seek%20path%20to%20scale%20sustainably/voice-of-the-us-farmer-2023-24-1536x1536.jpg" alt="Farm Image">
+          <img src="https://i.guim.co.uk/img/media/24c0fc9366d624f90fd46d4b5e7c5e24f5646f71/0_316_5000_3000/master/5000.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=8668106146b59f32005c01c98c14c475" alt="Agriculture">
+        </div>
+        
+        <div class="text-center mt-6">
+          <button onclick="toggleSection('why-choose-us')" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 button-animation">Why Choose Us?</button>
+          <button onclick="toggleSection('rules-regulations')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 ml-4 button-animation">Rules and Regulations</button>
+        </div>
+        
+        <div id="why-choose-us" class="hidden fade-in mt-6 text-gray-700 text-lg">
+          <h3 class="text-2xl font-bold text-gray-900 text-center">Why Choose Us?</h3>
+          <ul class="mt-4 list-disc list-inside">
+            <li>Secure and transparent lease agreements</li>
+            <li>Easy access to farmlands for farmers</li>
+            <li>Direct purchase of fresh produce from farmers</li>
+            <li>Promotes sustainable and tech-driven farming</li>
+          </ul>
+        </div>
+        
+        <div id="rules-regulations" class="hidden fade-in mt-6 text-gray-700 text-lg">
+          <h3 class="text-2xl font-bold text-gray-900 text-center">Rules and Regulations</h3>
+          <div class="text-center mt-4">
+            <button onclick="toggleRules('farmer-rules')" class="bg-yellow-600 text-white px-6 py-2 rounded-lg hover:bg-yellow-700 button-animation">Farmer Rules</button>
+            <button onclick="toggleRules('farm-owner-rules')" class="bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 ml-4 button-animation">Farm Owner Rules</button>
+            <button onclick="toggleRules('customer-rules')" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 ml-4 button-animation">Customer Rules</button>
+          </div>
+
+          <div id="farmer-rules" class="hidden mt-6">
+            <div class="section-title">Rules for Farmers</div>
+            <div class="section-content">
+              <ul class="list-disc list-inside">
+                <li><strong>Registration Requirement:</strong> Farmers must complete a verification process to ensure authenticity and eligibility for leasing.</li>
+                <li><strong>Farm Information:</strong> Farmers should provide accurate details about their farming practices, available crops, and land status.</li>
+                <li><strong>Lease Terms Compliance:</strong> Farmers must adhere to the terms outlined in the lease agreements.</li>
+                <li><strong>Payment Obligations:</strong> Farmers are responsible for making any necessary payments on time according to the lease agreements or other services availed.</li>
+                <li><strong>Land Maintenance:</strong> Farmers must maintain the leased land in good condition as per the contract terms.</li>
+                <li><strong>Produce Quality:</strong> Farmers should ensure the quality of the produce is up to the agreed standards before offering it for lease or sale.</li>
+                <li><strong>Timely Delivery:</strong> Farmers are expected to deliver crops or products to customers as per the agreed schedule.</li>
+                <li><strong>Environmental Responsibility:</strong> Farmers should adhere to environmentally sustainable farming practices to ensure minimal impact on the ecosystem.</li>
+                <li><strong>Confidentiality:</strong> Farmers must maintain the confidentiality of any proprietary information or agreements shared on the platform.</li>
+                <li><strong>Dispute Resolution:</strong> Farmers must resolve any disputes with farm owners or customers using the platform's designated resolution process.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="farm-owner-rules" class="hidden mt-6">
+            <div class="section-title">Rules for Farm Owners</div>
+            <div class="section-content">
+              <ul class="list-disc list-inside">
+                <li><strong>Land Verification:</strong> Farm owners must provide legitimate proof of ownership of the land they wish to lease.</li>
+                <li><strong>Farm Details:</strong> Farm owners are required to provide accurate and up-to-date details regarding the farm, including land area, available resources, and any farming equipment.</li>
+                <li><strong>Lease Agreement:</strong> Farm owners should ensure that all lease agreements are properly documented, including terms, duration, and obligations.</li>
+                <li><strong>Payment Timeliness:</strong> Farm owners must make payments to farmers and service providers on time as agreed in the lease contract.</li>
+                <li><strong>Land Maintenance:</strong> Farm owners are responsible for ensuring that the farm is in a usable and well-maintained condition before leasing it out.</li>
+                <li><strong>Compliance with Local Laws:</strong> Farm owners must comply with all regional agricultural laws and regulations.</li>
+                <li><strong>Safety Measures:</strong> Farm owners should ensure the farm is safe for any workers or third parties involved, including adherence to health and safety protocols.</li>
+                <li><strong>Inspection Rights:</strong> Farm owners must allow regular inspections by farmers or other relevant authorities to ensure the farm is being properly maintained.</li>
+                <li><strong>Dispute Resolution:</strong> Any disagreements related to land usage or payment should be handled through the platform’s mediation system.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div id="customer-rules" class="hidden mt-6">
+            <div class="section-title">Rules for Customers</div>
+            <div class="section-content">
+              <ul class="list-disc list-inside">
+                <li><strong>Customer Registration:</strong> Customers must complete registration to purchase or lease produce from farmers.</li>
+                <li><strong>Payment:</strong> Customers must ensure all payments are completed through the platform before any transactions are confirmed.</li>
+                <li><strong>Product Inspection:</strong> Customers should inspect the products or crops before confirming the acceptance of the lease agreement or purchase.</li>
+                <li><strong>Delivery and Pickup:</strong> Customers are responsible for coordinating with farmers for the timely delivery or pickup of the leased products or crops.</li>
+                <li><strong>Confidentiality:</strong> Customers must respect the confidentiality of any agreements and not disclose personal or farm owner information without permission.</li>
+                <li><strong>Dispute Resolution:</strong> Any issues with products, payments, or services should be addressed through the platform's dispute resolution mechanism.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      section.classList.toggle('hidden');
+    }
+
+    function toggleRules(ruleId) {
+      // Hide all rule sections first
+      const allRules = ['farmer-rules', 'farm-owner-rules', 'customer-rules'];
+      allRules.forEach(rule => {
+        const ruleSection = document.getElementById(rule);
+        ruleSection.classList.add('hidden');
+      });
+
+      // Show the clicked rule section
+      const rule = document.getElementById(ruleId);
+      rule.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

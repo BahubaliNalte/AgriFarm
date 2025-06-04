@@ -1,0 +1,19 @@
+[
+    {
+      "fullName": "John Doe",
+      "aadharNo": "987654321098",
+      "phoneNumber": "9876543210",
+      "address": "Village A, District X",
+      "experience": 5,
+      "preferredCrops": "Wheat, Rice"
+    },
+    {
+      "fullName": "Rajesh Kumar",
+      "aadharNo": "456789123456",
+      "phoneNumber": "9123456789",
+      "address": "Village B, District Y",
+      "experience": 7,
+      "preferredCrops": "Maize, Sugarcane"
+    }
+  ]
+  
